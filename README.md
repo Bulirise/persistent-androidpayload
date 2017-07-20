@@ -1,3 +1,18 @@
+
+# Make metasploit's android payload persistent
+
+* Add AlarmManager 
+* Make service restart on destroy
+
+## How-to
+
+just download release version, unpack android.zip under "data" folder of metasploit-framework's root directory
+
+or compile 
+
+# Compile
+
+
 To compile JavaPayload for Metasploit (including Java Meterpreter), you need
 Maven 3.0 or above. Just run
 
