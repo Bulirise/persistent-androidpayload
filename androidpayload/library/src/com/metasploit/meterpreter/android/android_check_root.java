@@ -6,7 +6,7 @@ import com.metasploit.meterpreter.Meterpreter;
 import com.metasploit.meterpreter.TLVPacket;
 import com.metasploit.meterpreter.command.Command;
 
-public class check_root_android implements Command {
+public class android_check_root implements Command {
 
     private static final int TLV_EXTENSIONS = 20000;
     private static final int TLV_TYPE_CHECK_ROOT_BOOL =
@@ -38,10 +38,10 @@ public class check_root_android implements Command {
                 || canExecuteCommand("which su");
     }
 
-    private static boolean fileInstalled(String packageName) {
+    private static boolean fileInstalled(String fileName) {
         boolean installed;
         try {
-            File file = new File("/system/app/" + packageName);
+            File file = new File(fileName);
             installed = file.exists();
         } catch (Exception e1){
             installed = false;
@@ -53,8 +53,8 @@ public class check_root_android implements Command {
     private static boolean canExecuteCommand(String command) {
         boolean executedSuccesfully;
         try {
-            Runtime.getRuntime().exec(command);
-            executedSuccesfully = true;
+            Process process = Runtime.getRuntime().exec(command);
+            executedSuccesfully = process.waitFor() == 0;
         } catch (Exception e) {
             executedSuccesfully = false;
         }

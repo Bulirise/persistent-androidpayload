@@ -140,19 +140,11 @@ public class TcpTransport extends Transport {
     }
 
     public TLVPacket readPacket() throws IOException {
-        int len = this.inputStream.readInt();
-        int type = this.inputStream.readInt();
-        return new TLVPacket(this.inputStream, len - 8);
+        return this.readAndDecodePacket(this.inputStream);
     }
 
     public void writePacket(TLVPacket packet, int type) throws IOException {
-        byte[] data = packet.toByteArray();
-        synchronized (this.outputStream) {
-            this.outputStream.writeInt(data.length + 8);
-            this.outputStream.writeInt(type);
-            this.outputStream.write(data);
-            this.outputStream.flush();
-        }
+        this.encodePacketAndWrite(packet, type, this.outputStream);
     }
 
     public boolean dispatch(Meterpreter met) {
@@ -172,6 +164,9 @@ public class TcpTransport extends Transport {
 
                 TLVPacket response = request.createResponse();
                 result = met.getCommandManager().executeCommand(met, request, response);
+
+                // Make sure the UUID is baked into each response.
+                response.add(TLVType.TLV_TYPE_UUID, met.getUUID());
 
                 this.writePacket(response, TLVPacket.PACKET_TYPE_RESPONSE);
 
@@ -207,6 +202,8 @@ public class TcpTransport extends Transport {
             this.inputStream.readFully(throwAway);
         }
         // and finally discard the block count
-        this.inputStream.readInt();
+        if (blocks > 0) {
+            this.inputStream.readInt();
+        }
     }
 }

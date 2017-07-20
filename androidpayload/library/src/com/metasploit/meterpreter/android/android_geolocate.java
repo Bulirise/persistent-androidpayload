@@ -9,7 +9,7 @@ import com.metasploit.meterpreter.Meterpreter;
 import com.metasploit.meterpreter.TLVPacket;
 import com.metasploit.meterpreter.command.Command;
 
-public class geolocate_android implements Command {
+public class android_geolocate implements Command {
 
     private static final int TLV_EXTENSIONS = 20000;
     private static final int TLV_TYPE_GEO_LAT = TLVPacket.TLV_META_TYPE_STRING
@@ -32,8 +32,9 @@ public class geolocate_android implements Command {
                     Double.toString(location.getLatitude()));
             response.add(TLV_TYPE_GEO_LONG,
                     Double.toString(location.getLongitude()));
-        } else
+        } else {
             return ERROR_FAILURE;
+        }
 
         return ERROR_SUCCESS;
     }

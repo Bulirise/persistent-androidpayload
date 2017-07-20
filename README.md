@@ -1,17 +1,3 @@
-# This repository has been merged into metasploit-payloads
-
-Please note that this repository has been merged into a unified repository for
-meterpreters: https://github.com/rapid7/metasploit-payloads
-
-The history has been preserved, along with prehistory from metasploit-framwork:
-https://github.com/rapid7/metasploit-payloads/tree/master/java
-
-If you have any old PRs, please rebase them on the new repository. See
-https://github.com/rapid7/meterpreter/issues/110 for discussion of why we
-merged these repositories back together.
-
-## Build Instructions
-
 To compile JavaPayload for Metasploit (including Java Meterpreter), you need
 Maven 3.0 or above. Just run
 
@@ -30,7 +16,7 @@ to package all the files and copy them into the correct place for Metasploit
 make sure that there is an exclude rule in your antivirus for the Metasploit
 directory (or that your antivirus is disabled).
 
-If the path to your metasploit framework repository is not `../metasploit-framework`,
+If the path to your metasploit framework repository is not `../../metasploit-framework`,
 but for example `../msf3`, use
 
 ```
@@ -70,7 +56,7 @@ http://maven.apache.org/plugins/maven-idea-plugin/
 
 1. Download the [Android SDK](https://developer.android.com/sdk/index.html), and the [Android NDK](https://developer.android.com/tools/sdk/ndk/index.html) somewhere
 2. Launch the `sdk/tool/android` program
-3. Install API version 10, and update the "Android SDK Tools" and "Android SDK Platform-tools"
+3. Install API version 10 and 19, and update the "Android SDK Tools" and "Android SDK Platform-tools"
 4. Compile android meterpreter:
 
 ```

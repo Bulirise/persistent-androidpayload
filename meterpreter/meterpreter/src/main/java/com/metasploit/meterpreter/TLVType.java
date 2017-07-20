@@ -38,10 +38,18 @@ public interface TLVType {
     public static final int TLV_TYPE_EXCEPTION_CODE   = TLVPacket.TLV_META_TYPE_UINT   | 300;
     public static final int TLV_TYPE_EXCEPTION_STRING = TLVPacket.TLV_META_TYPE_STRING | 301;
 
-    public static final int TLV_TYPE_LIBRARY_PATH = TLVPacket.TLV_META_TYPE_STRING | 400;
-    public static final int TLV_TYPE_TARGET_PATH  = TLVPacket.TLV_META_TYPE_STRING | 401;
-    public static final int TLV_TYPE_MIGRATE_PID  = TLVPacket.TLV_META_TYPE_UINT   | 402;
-    public static final int TLV_TYPE_MIGRATE_LEN  = TLVPacket.TLV_META_TYPE_UINT   | 403;
+    public static final int TLV_TYPE_LIBRARY_PATH        = TLVPacket.TLV_META_TYPE_STRING | 400;
+    public static final int TLV_TYPE_TARGET_PATH         = TLVPacket.TLV_META_TYPE_STRING | 401;
+    public static final int TLV_TYPE_MIGRATE_PID         = TLVPacket.TLV_META_TYPE_UINT   | 402;
+    public static final int TLV_TYPE_MIGRATE_PAYLOAD_LEN = TLVPacket.TLV_META_TYPE_UINT   | 403;
+    public static final int TLV_TYPE_MIGRATE_PAYLOAD     = TLVPacket.TLV_META_TYPE_STRING | 404;
+    public static final int TLV_TYPE_MIGRATE_ARCH        = TLVPacket.TLV_META_TYPE_STRING | 405;
+    public static final int TLV_TYPE_MIGRATE_TECHNIQUE   = TLVPacket.TLV_META_TYPE_UINT   | 406;
+    public static final int TLV_TYPE_MIGRATE_BASE_ADDR   = TLVPacket.TLV_META_TYPE_UINT   | 407;
+    public static final int TLV_TYPE_MIGRATE_ENTRY_POINT = TLVPacket.TLV_META_TYPE_UINT   | 408;
+    public static final int TLV_TYPE_MIGRATE_SOCKET_PATH = TLVPacket.TLV_META_TYPE_STRING | 409;
+    public static final int TLV_TYPE_MIGRATE_STUB_LEN    = TLVPacket.TLV_META_TYPE_UINT   | 410;
+    public static final int TLV_TYPE_MIGRATE_STUB        = TLVPacket.TLV_META_TYPE_STRING | 411;
 
     public static final int TLV_TYPE_TRANS_TYPE         = TLVPacket.TLV_META_TYPE_UINT   | 430;
     public static final int TLV_TYPE_TRANS_URL          = TLVPacket.TLV_META_TYPE_STRING | 431;
@@ -56,11 +64,9 @@ public interface TLVType {
     public static final int TLV_TYPE_TRANS_RETRY_WAIT   = TLVPacket.TLV_META_TYPE_UINT   | 440;
     public static final int TLV_TYPE_TRANS_GROUP        = TLVPacket.TLV_META_TYPE_GROUP  | 441;
 
-    public static final int TLV_TYPE_MACHINE_ID = TLVPacket.TLV_META_TYPE_STRING | 460;
-    public static final int TLV_TYPE_UUID       = TLVPacket.TLV_META_TYPE_RAW    | 461;
-
-    public static final int TLV_TYPE_CIPHER_NAME = TLVPacket.TLV_META_TYPE_STRING | 500;
-    public static final int TLV_TYPE_CIPHER_PARAMETERS = TLVPacket.TLV_META_TYPE_GROUP | 501;
+    public static final int TLV_TYPE_MACHINE_ID   = TLVPacket.TLV_META_TYPE_STRING | 460;
+    public static final int TLV_TYPE_UUID         = TLVPacket.TLV_META_TYPE_RAW    | 461;
+    public static final int TLV_TYPE_SESSION_GUID = TLVPacket.TLV_META_TYPE_RAW    | 462;
 
     // General
     public static final int TLV_TYPE_HANDLE         = TLVPacket.TLV_META_TYPE_QWORD | 600;
@@ -118,9 +124,11 @@ public interface TLVType {
     public static final int TLV_TYPE_VALUE_DATA = TLVPacket.TLV_META_TYPE_RAW    | 1012;
 
     // Config
-    public static final int TLV_TYPE_COMPUTER_NAME = TLVPacket.TLV_META_TYPE_STRING | 1040;
-    public static final int TLV_TYPE_OS_NAME       = TLVPacket.TLV_META_TYPE_STRING | 1041;
-    public static final int TLV_TYPE_USER_NAME     = TLVPacket.TLV_META_TYPE_STRING | 1042;
+    public static final int TLV_TYPE_COMPUTER_NAME  = TLVPacket.TLV_META_TYPE_STRING | 1040;
+    public static final int TLV_TYPE_OS_NAME        = TLVPacket.TLV_META_TYPE_STRING | 1041;
+    public static final int TLV_TYPE_USER_NAME      = TLVPacket.TLV_META_TYPE_STRING | 1042;
+    public static final int TLV_TYPE_ARCHITECTURE   = TLVPacket.TLV_META_TYPE_STRING | 1043;
+    public static final int TLV_TYPE_LOCAL_DATETIME = TLVPacket.TLV_META_TYPE_STRING | 1048;
 
     public static final int TLV_TYPE_ENV_VARIABLE = TLVPacket.TLV_META_TYPE_STRING | 1100;
     public static final int TLV_TYPE_ENV_VALUE    = TLVPacket.TLV_META_TYPE_STRING | 1101;
@@ -196,4 +204,16 @@ public interface TLVType {
     public static final int TLV_TYPE_DESKTOP_SCREENSHOT_PE32DLL_BUFFER = TLVPacket.TLV_META_TYPE_STRING | 3010;
     public static final int TLV_TYPE_DESKTOP_SCREENSHOT_PE64DLL_LENGTH = TLVPacket.TLV_META_TYPE_UINT   | 3011;
     public static final int TLV_TYPE_DESKTOP_SCREENSHOT_PE64DLL_BUFFER = TLVPacket.TLV_META_TYPE_STRING | 3012;
+
+    int TLV_TYPE_EXTENSION_EXTAPI = 0;
+    int TLV_EXTENSIONS = 20000;
+    int TLV_TYPE_EXT_CLIPBOARD_DOWNLOAD             = TLVPacket.TLV_META_TYPE_BOOL   | (TLV_TYPE_EXTENSION_EXTAPI + TLV_EXTENSIONS + 35);
+    int TLV_TYPE_EXT_CLIPBOARD_TYPE_TIMESTAMP       = TLVPacket.TLV_META_TYPE_STRING | (TLV_TYPE_EXTENSION_EXTAPI + TLV_EXTENSIONS + 38);
+    int TLV_TYPE_EXT_CLIPBOARD_TYPE_TEXT            = TLVPacket.TLV_META_TYPE_GROUP  | (TLV_TYPE_EXTENSION_EXTAPI + TLV_EXTENSIONS + 39);
+    int TLV_TYPE_EXT_CLIPBOARD_TYPE_TEXT_CONTENT    = TLVPacket.TLV_META_TYPE_STRING | (TLV_TYPE_EXTENSION_EXTAPI + TLV_EXTENSIONS + 40);
+
+    int LOAD_LIBRARY_FLAG_ON_DISK   = (1 << 0);
+    int LOAD_LIBRARY_FLAG_EXTENSION = (1 << 1);
+    int LOAD_LIBRARY_FLAG_LOCAL     = (1 << 2);
+
 }
